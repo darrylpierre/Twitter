@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
+
 import java.util.List;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
@@ -43,12 +44,26 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         viewHolder.tvBody.setText(tweet.body);
         viewHolder.tvScreenName.setText(tweet.user.screenName);
         Glide.with(context).load(tweet.user.profileImageUrl).into(viewHolder.ivProfileImage);
+        viewHolder.tvTimestamp.setText(tweet.createdAt);
 
     }
 
     @Override
     public int getItemCount() {
         return tweets.size();
+
+
+    }
+    // Clean all elements of the recycler
+    public void clear(){
+        tweets.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items
+    public void addTweets(List<Tweet> tweetList){
+        tweets.addAll(tweetList);
+        notifyDataSetChanged();
     }
 
     // Define the ViewHolder
@@ -57,6 +72,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         public ImageView ivProfileImage;
         public TextView tvScreenName;
         public TextView tvBody;
+        public TextView tvTimestamp;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -64,6 +80,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvBody = itemView.findViewById(R.id.tvBody);
+            tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
         }
     }
 
